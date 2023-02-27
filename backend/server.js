@@ -1,6 +1,7 @@
 const express = require("express");
-require("dotenv").config()
-const routes = require("./routes/actors")
+require("dotenv").config();
+const routes = require("./routes/actors");
+const mongoose = require("mongoose");
 
 const app = express();
 
@@ -16,6 +17,16 @@ app.use(express.json());
 
 //Respond to requests
 app.use("/api/actors", routes);
+
+
+//connect to database
+mongoose.set('strictQuery', false);
+mongoose.connect(process.env.URI)
+    .then(() => {
+        console.log("Connected to database")
+    })
+    .catch(err => console.log(err));
+
 
 
 //Listening for requests
