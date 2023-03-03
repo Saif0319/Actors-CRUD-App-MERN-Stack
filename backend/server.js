@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const routes = require("./routes/actors");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use((req, res, next) => {
 
 //Middlewares
 app.use(express.json());
+app.use(cors());
 
 
 //Respond to requests
