@@ -6,7 +6,7 @@ const Actor = require("../models/actorModel")
 
 //GET All Actors
 const getActors = async (req, res) => {
-    const actors = await Actor.find({}).sort({firstName: 1});
+    const actors = await Actor.find({});
 
     res.status(200).json(actors);
 }

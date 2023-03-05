@@ -22,7 +22,6 @@ export const actorsReducer = (state, action) => {
             return {
                 actors: state.actors.filter((id) => id !== action.payload._id)
             }
-
         default:
             return state
     }
