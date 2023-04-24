@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ActorsContext } from "../context/ActorsContext";
+import axios from "axios";
 
 const Create = () => {
 
@@ -21,43 +22,23 @@ const Create = () => {
             birthday: birthday
         };
 
-        const response = await fetch("http://localhost:4000/api/actors/", {
-            method: 'POST',
-            body: JSON.stringify(actor),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-
-        const json = await response.json()
-
-        if (!response.ok) {
-            setError(json.error)
-        }
-
-        if(response.ok) {
-            setError(null);
-            dispatch({
-                type: "CREATE_ACTOR",
-                payload: json
+            await axios.post("http://localhost:4000/api/actors/", actor)
+            
+            .then((res) => {
+                setError(null);
+                dispatch({
+                    type: "CREATE_ACTOR",
+                    payload: res.data
+                })
+                return navigate("/");
             })
-            return navigate("/");
-        }
+            .catch(err => {
+                console.log(err);
+                return setError(actor.error);
+            })
 
-            // const actor = await axios.post("http://localhost:4000/api/actors/", {
-            //     firstName: fName,
-            //     lastName: lName,
-            //     birthday: birthday
-            // });
 
-            // if(actor.status === 200) {
-            //     return navigate("/");
-            // }
-
-            // if(actor.status === 400) {
-            //     console.log(actor);
-            //     return setError(actor.error);
-            // }
+                
         
 
         
