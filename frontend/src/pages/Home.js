@@ -11,31 +11,24 @@ const Home = () => {
     const [sort, setSort] = useState("fName");
 
     useEffect(() => {
-
-
         const fetchActors = () => {
-            axios.get("http://localhost:4000/api/actors/")
+          axios.get(`http://localhost:4000/api/actors/`)
             .then((res) => {
-                
-                const data = res.data;
-                console.log(data);
-                setActors(data);
-
-                //distpatch an action to update the state
-                dispatch({
-                    type: "SET_ACTORS",
-                    payload: actors
-                })
+              const data = res.data;
+              setActors(data);
+              
+              dispatch({
+                type: "SET_ACTORS",
+                payload: data
+              });
             })
             .catch(err => {
-                console.log(err);
-            })
-            
+              console.log(err);
+            });
         }
-
+      
         fetchActors();
-
-    }, [dispatch])
+      }, [actors, dispatch]);
 
 
   return (

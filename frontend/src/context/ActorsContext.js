@@ -20,8 +20,9 @@ export const actorsReducer = (state, action) => {
 
         case "DELETE_ACTOR":
             return {
-                actors: state.actors.filter((id) => id !== action.payload._id)
+                actors: state.actors.filter((actor) => actor._id !== action.payload._id)
             }
+
         default:
             return state
     }

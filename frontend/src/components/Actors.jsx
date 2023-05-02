@@ -11,15 +11,20 @@ const Actors = ({fName, lName, birthday, id}) => {
 
 
   //Handle delete
-    const deleteHandler = async () => {
-        const actor = await axios.delete("http://localhost:4000/api/actors/" + id);
+  const deleteHandler = async () => {
+    try {
+      await axios.delete(`http://localhost:4000/api/actors/${id}`);
+      dispatch({
+        type: "DELETE_ACTOR",
+        payload: id
+      });
 
-        //Dispatching an action to update the state after deleting the actor
-        dispatch({
-          type: "DELETE_ACTOR",
-          payload: actor
-        })
+      navigate("/", { replace: true });
+      
+    } catch (error) {
+      console.log(error);
     }
+  };
 
 
     //Handle UPDATE
