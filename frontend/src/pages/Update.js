@@ -37,8 +37,10 @@ const Update = () => {
         method: 'PATCH',
         body: JSON.stringify(actor),
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("user")}`
         }
+        
     })
 
     const json = await response.json();

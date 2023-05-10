@@ -6,7 +6,8 @@ const Actor = require("../models/actorModel")
 
 //GET All Actors
 const getActors = async (req, res) => {
-    const actors = await Actor.find({});
+    const user_id = req.user._id;
+    const actors = await Actor.find({user_id});
 
     res.status(200).json(actors);
 }
@@ -35,10 +36,30 @@ const getActor = async (req, res) => {
 
 //CREATE an actor
 const createActor = async (req, res) => {
+
+    let emptyFields = [];
+
     const {firstName, lastName, birthday} = req.body;
 
+    if(!firstName) {
+        emptyFields.push("First Name");
+    }
+
+    if(!lastName) {
+        emptyFields.push("Last Name");
+    }
+
+    if(!birthday) {
+        emptyFields.push("Birthday");
+    }
+
+    if(emptyFields.length > 0) {
+        return res.status(400).json({error: "All fields are required", emptyFields});
+    }
+
     try {
-        const actor = await Actor.create({firstName, lastName, birthday});
+        const user_id = req.user._id;
+        const actor = await Actor.create({firstName, lastName, birthday, user_id});
         await res.status(200).json(actor);
     }
 

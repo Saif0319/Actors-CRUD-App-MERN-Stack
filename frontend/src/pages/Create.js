@@ -11,6 +11,7 @@ const Create = () => {
     const [lName, setLname] = useState("");
     const [birthday, setBirthday] = useState("");
     const [error, setError] = useState(null);
+    const [emptyFields, setEmptyFields] = useState([]);
     const { dispatch } = useContext(ActorsContext);
 
     const handleBtn = async (e) => {
@@ -22,7 +23,11 @@ const Create = () => {
             birthday: birthday
         };
 
-            await axios.post("http://localhost:4000/api/actors/", actor)
+            await axios.post("http://localhost:4000/api/actors/", actor, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem("user")}`
+                }
+            })
             
             .then((res) => {
                 setError(null);
@@ -30,10 +35,13 @@ const Create = () => {
                     type: "CREATE_ACTOR",
                     payload: res.data
                 })
+                setEmptyFields([]);
                 return navigate("/");
             })
             .catch(err => {
                 console.log(err);
+                setEmptyFields(err.response.data.emptyFields);
+                console.log(emptyFields);
                 return setError(actor.error);
             })
 
@@ -67,6 +75,12 @@ const Create = () => {
             </div>
 
             {error && <div className="text-xl text-red-600">{error}</div>}
+
+            {emptyFields.length > 0 ? 
+                emptyFields.map(error => {
+                    return <p className="text-xl text-red-600">{error} is required</p>
+                })    
+        : ""}
         </form>
     </div>
   )

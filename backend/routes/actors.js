@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const actorController = require("../controllers/actorController")
+const requireAuth = require("../middlewares/requireAuth");
 
-
+router.use(requireAuth);
 
 //GET all actors
 router.get("/", actorController.getActors);

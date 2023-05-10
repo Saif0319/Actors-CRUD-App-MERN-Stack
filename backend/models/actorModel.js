@@ -16,6 +16,10 @@ const actorSchema = new Schema({
     birthday: {
         type: Date,
         required: true
+    },
+    user_id: {
+        type: String,
+        required: true
     }
 })
 

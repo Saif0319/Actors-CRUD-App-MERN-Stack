@@ -12,7 +12,11 @@ const Home = () => {
 
     useEffect(() => {
         const fetchActors = () => {
-          axios.get(`http://localhost:4000/api/actors/`)
+          axios.get(`http://localhost:4000/api/actors/`, {
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem("user")}`
+            }
+          })
             .then((res) => {
               const data = res.data;
               setActors(data);
@@ -27,8 +31,11 @@ const Home = () => {
             });
         }
       
-        fetchActors();
-      }, [actors, dispatch]);
+        if(localStorage.getItem("user")) {
+          fetchActors();
+        }
+
+      }, [dispatch]);
 
 
   return (
