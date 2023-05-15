@@ -12,7 +12,7 @@ const Home = () => {
 
     useEffect(() => {
         const fetchActors = () => {
-          axios.get(`http://localhost:4000/api/actors/`, {
+          axios.get(`https://mern-actors-app.onrender.com/api/actors/`, {
             headers: {
               'Authorization': `Bearer ${localStorage.getItem("user")}`
             }

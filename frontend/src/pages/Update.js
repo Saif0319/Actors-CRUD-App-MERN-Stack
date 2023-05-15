@@ -33,7 +33,7 @@ const Update = () => {
     };
 
 
-    const response = await fetch("http://localhost:4000/api/actors/" + state.id, {
+    const response = await fetch("https://mern-actors-app.onrender.com/api/actors/" + state.id, {
         method: 'PATCH',
         body: JSON.stringify(actor),
         headers: {

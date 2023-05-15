@@ -13,7 +13,7 @@ const Actors = ({fName, lName, birthday, id}) => {
   //Handle delete
   const deleteHandler = async () => {
     try {
-      await axios.delete(`http://localhost:4000/api/actors/${id}`, {
+      await axios.delete(`https://mern-actors-app.onrender.com/api/actors/${id}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem("user")}`
         }

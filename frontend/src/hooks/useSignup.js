@@ -12,7 +12,7 @@ export const useSignup = () => {
         setIsLoading(true);
         setError(false);
 
-        await axios.post("http://localhost:4000/users/signup", {
+        await axios.post("https://mern-actors-app.onrender.com/users/signup", {
             email,
             password
         })

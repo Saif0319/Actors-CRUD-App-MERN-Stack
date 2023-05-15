@@ -23,7 +23,7 @@ const Create = () => {
             birthday: birthday
         };
 
-            await axios.post("http://localhost:4000/api/actors/", actor, {
+            await axios.post("https://mern-actors-app.onrender.com/api/actors/", actor, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem("user")}`
                 }
